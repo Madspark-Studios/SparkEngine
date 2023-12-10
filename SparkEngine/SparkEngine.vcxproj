@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Spark\Log.h" />
     <ClInclude Include="src\Spark\Application.h" />
     <ClInclude Include="src\Spark\Core.h" />
     <ClInclude Include="src\Spark.h" />
     <ClInclude Include="src\Spark\EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Spark\Log.cpp" />
     <ClCompile Include="src\Spark\Application.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -64,10 +66,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)SparkEngine/vendor/spdlog/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,10 +82,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)SparkEngine/vendor/spdlog/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
