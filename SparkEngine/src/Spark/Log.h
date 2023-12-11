@@ -20,12 +20,14 @@ namespace Spark
 }
 
 //Core log macros
+#define SPARK_CORE_TRACE(...)		Spark::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define SPARK_CORE_INFO(...)		Spark::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define SPARK_CORE_WARN(...)		Spark::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define SPARK_CORE_ERROR(...)		Spark::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define SPARK_CORE_CRITICAL(...)	Spark::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 //Client log macros
+#define SPARK_TRACE(...)			Spark::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define SPARK_INFO(...)				Spark::Log::GetClientLogger()->info(__VA_ARGS__)
 #define SPARK_WARN(...)				Spark::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define SPARK_ERROR(...)			Spark::Log::GetClientLogger()->error(__VA_ARGS__)
