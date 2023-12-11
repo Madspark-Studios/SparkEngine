@@ -19,6 +19,9 @@ project "SparkEngine"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-tmp/" .. outputDir .. "/%{prj.name}")
 
+	pchheader "SparkPCH.h"
+	pchsource "%{prj.name}/src/SparkPCH.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -52,14 +55,20 @@ project "SparkEngine"
 	filter "configurations:Debug"
 		defines "SPARK_DEBUG"
 		symbols "On"
+		staticruntime "off"
+		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "SPARK_RELEASE"
 		optimize "On"
+		staticruntime "off"
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "SPARK_DIST"
 		optimize "On"
+		staticruntime "off"
+		runtime "Release"
 
 
 
@@ -102,11 +111,17 @@ project "SparkGame"
 	filter "configurations:Debug"
 		defines "SPARK_DEBUG"
 		symbols "On"
+		staticruntime "off"
+		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "SPARK_RELEASE"
 		optimize "On"
+		staticruntime "off"
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "SPARK_DIST"
 		optimize "On"
+		staticruntime "off"
+		runtime "Release"

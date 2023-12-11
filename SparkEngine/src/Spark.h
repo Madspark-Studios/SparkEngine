@@ -6,3 +6,5 @@
 //----ENTRY POINT---------------
 #include "Spark/EntryPoint.h"
 //------------------------------
+
+#include "Spark/Events/ApplicationEvent.h"

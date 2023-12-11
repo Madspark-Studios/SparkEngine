@@ -1,4 +1,8 @@
+#include "SparkPCH.h"
 #include "Application.h"
+
+#include "Spark/Events/ApplicationEvent.h"
+#include "Spark/Log.h"
 
 namespace Spark
 {
@@ -14,9 +18,6 @@ namespace Spark
 
 	void Application::Run()
 	{
-		while (true)
-		{
-
-		}
+		while (true);
 	}
 }

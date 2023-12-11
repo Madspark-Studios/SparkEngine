@@ -4,6 +4,9 @@
     <Filter Include="Spark">
       <UniqueIdentifier>{26081C0E-921C-44BF-5B9E-E71EC77140F0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Spark\Events">
+      <UniqueIdentifier>{4A4D7E82-36B0-0D27-DF35-46DDCB77D9A9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Spark.h" />
@@ -16,9 +19,22 @@
     <ClInclude Include="src\Spark\EntryPoint.h">
       <Filter>Spark</Filter>
     </ClInclude>
+    <ClInclude Include="src\Spark\Events\ApplicationEvent.h">
+      <Filter>Spark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Events\Event.h">
+      <Filter>Spark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Events\KeyEvent.h">
+      <Filter>Spark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Events\MouseEvent.h">
+      <Filter>Spark\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Spark\Log.h">
       <Filter>Spark</Filter>
     </ClInclude>
+    <ClInclude Include="src\SparkPCH.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
@@ -27,5 +43,6 @@
     <ClCompile Include="src\Spark\Log.cpp">
       <Filter>Spark</Filter>
     </ClCompile>
+    <ClCompile Include="src\SparkPCH.cpp" />
   </ItemGroup>
 </Project>
