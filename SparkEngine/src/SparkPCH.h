@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Spark/Log.h"
+
 #ifdef SPARK_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

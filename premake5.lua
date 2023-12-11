@@ -31,7 +31,19 @@ project "SparkEngine"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/vendor/GLFW/include"
+	}
+
+	libdirs
+	{
+		"%{prj.name}/vendor/GLFW/lib-vc2022"
+	}
+
+	links
+	{
+		"glfw3.lib",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -43,13 +55,13 @@ project "SparkEngine"
 		{
 			"SPARK_PLATFORM_WINDOWS",
 			"SPARK_BUILD_DLL",
+			"SPARK_ENABLE_ASSERTS",
 			"_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
 		}
 
 		postbuildcommands
 		{
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/SparkGame")
-			--("copy %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/SparkGame")
 		}
 
 	filter "configurations:Debug"
@@ -89,12 +101,20 @@ project "SparkGame"
 	includedirs
 	{
 		"SparkEngine/src",
-		"SparkEngine/vendor/spdlog/include"
+		"SparkEngine/vendor/spdlog/include",
+		"SparkEngine/vendor/GLFW/include"
+	}
+
+	libdirs
+	{
+		"SparkEngine/vendor/GLFW/lib-vc2022"
 	}
 
 	links
 	{
-		"SparkEngine"
+		"SparkEngine",
+		"glfw3.lib",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -105,6 +125,7 @@ project "SparkGame"
 		defines
 		{
 			"SPARK_PLATFORM_WINDOWS",
+			"SPARK_ENABLE_ASSERTS",
 			"_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
 		}
 
