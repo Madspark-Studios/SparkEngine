@@ -4,3 +4,6 @@
 [submodule "SparkEngine/vendor/GLFW"]
 	path = SparkEngine/vendor/GLFW
 	url = https://github.com/Madspark-Studios/glfwForSparkEngine
+[submodule "SparkEngine/vendor/imgui"]
+	path = SparkEngine/vendor/imgui
+	url = https://github.com/Madspark-Studios/imguiForSparkEngine

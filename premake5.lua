@@ -14,9 +14,11 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["glad"] = "SparkEngine/vendor/glad/include"
 IncludeDir["GLFW"] = "SparkEngine/vendor/GLFW/include"
+IncludeDir["imgui"] = "SparkEngine/vendor/imgui"
 
 include "SparkEngine/vendor/glad"
 include "SparkEngine/vendor/GLFW"
+include "SparkEngine/vendor/imgui"
 
 project "SparkEngine"
 	location "SparkEngine"
@@ -40,7 +42,8 @@ project "SparkEngine"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	libdirs
@@ -52,6 +55,7 @@ project "SparkEngine"
 	{
 		"glad",
 		"GLFW",
+		"imgui",
 		"opengl32.lib"
 	}
 
@@ -112,7 +116,8 @@ project "SparkGame"
 		"SparkEngine/src",
 		"SparkEngine/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	libdirs
@@ -125,6 +130,7 @@ project "SparkGame"
 		"SparkEngine",
 		"glad",
 		"GLFW",
+		"imgui",
 		"opengl32.lib"
 	}
 
