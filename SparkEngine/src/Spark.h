@@ -8,3 +8,4 @@
 //------------------------------
 
 #include "Spark/Events/ApplicationEvent.h"
+#include "Spark/Layer.h"
