@@ -1,7 +1,7 @@
 #include "SparkPCH.h"
 #include "Application.h"
 
-#include <GLFW/glfw3.h>	
+#include <glad/gl.h>
 
 namespace Spark
 {
