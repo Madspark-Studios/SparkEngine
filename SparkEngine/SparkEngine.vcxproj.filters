@@ -1,48 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Spark">
-      <UniqueIdentifier>{26081C0E-921C-44BF-5B9E-E71EC77140F0}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Spark\Events">
-      <UniqueIdentifier>{4A4D7E82-36B0-0D27-DF35-46DDCB77D9A9}</UniqueIdentifier>
+    <Filter Include="src\Spark">
+      <UniqueIdentifier>{7D16D9B3-E980-8D2A-32BF-3ED09E686B7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Spark\Events">
+      <UniqueIdentifier>{C1F39E95-ADEC-BDE7-D61E-A36CC2769DF3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Spark\Platform">
+      <UniqueIdentifier>{71EF4895-5DD3-09EB-C633-043EB236F46C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Spark\Platform\Windows">
+      <UniqueIdentifier>{AB7AC37B-978A-6F4C-0044-D46AEC725EE5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\glad">
+      <UniqueIdentifier>{9A8E79C1-0644-F2B6-8F38-EC8DFBECE8BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\glad\src">
+      <UniqueIdentifier>{B1098FEA-1D95-FCAE-26A6-7FA392B058AF}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Spark.h" />
+    <ClInclude Include="src\Spark.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Spark\Application.h">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Core.h">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\EntryPoint.h">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Events\ApplicationEvent.h">
-      <Filter>Spark\Events</Filter>
+      <Filter>src\Spark\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Events\Event.h">
-      <Filter>Spark\Events</Filter>
+      <Filter>src\Spark\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Events\KeyEvent.h">
-      <Filter>Spark\Events</Filter>
+      <Filter>src\Spark\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Events\MouseEvent.h">
-      <Filter>Spark\Events</Filter>
+      <Filter>src\Spark\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Layer.h">
+      <Filter>src\Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\LayerStack.h">
+      <Filter>src\Spark</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Log.h">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
     </ClInclude>
-    <ClInclude Include="src\SparkPCH.h" />
+    <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h">
+      <Filter>src\Spark\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Window.h">
+      <Filter>src\Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SparkPCH.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Spark\Layer.cpp">
+      <Filter>src\Spark</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Spark\LayerStack.cpp">
+      <Filter>src\Spark</Filter>
     </ClCompile>
     <ClCompile Include="src\Spark\Log.cpp">
-      <Filter>Spark</Filter>
+      <Filter>src\Spark</Filter>
     </ClCompile>
-    <ClCompile Include="src\SparkPCH.cpp" />
+    <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp">
+      <Filter>src\Spark\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SparkPCH.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\glad\src\gl.c">
+      <Filter>vendor\glad\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -104,7 +104,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -132,7 +132,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -155,8 +155,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Spark\LayerStack.h" />
-    <ClInclude Include="src\Spark\Layer.h" />
     <ClInclude Include="src\Spark.h" />
     <ClInclude Include="src\Spark\Application.h" />
     <ClInclude Include="src\Spark\Core.h" />
@@ -165,20 +163,27 @@
     <ClInclude Include="src\Spark\Events\Event.h" />
     <ClInclude Include="src\Spark\Events\KeyEvent.h" />
     <ClInclude Include="src\Spark\Events\MouseEvent.h" />
+    <ClInclude Include="src\Spark\Layer.h" />
+    <ClInclude Include="src\Spark\LayerStack.h" />
     <ClInclude Include="src\Spark\Log.h" />
-    <ClInclude Include="src\SparkPCH.h" />
-    <ClInclude Include="src\Spark\Window.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Spark\Window.h" />
+    <ClInclude Include="src\SparkPCH.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Spark\LayerStack.cpp" />
-    <ClCompile Include="src\Spark\Layer.cpp" />
     <ClCompile Include="src\Spark\Application.cpp" />
+    <ClCompile Include="src\Spark\Layer.cpp" />
+    <ClCompile Include="src\Spark\LayerStack.cpp" />
     <ClCompile Include="src\Spark\Log.cpp" />
+    <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\SparkPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="vendor\glad\src\gl.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

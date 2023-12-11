@@ -11,6 +11,13 @@ workspace "Spark"
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["glad"] = "SparkEngine/vendor/glad/include"
+IncludeDir["GLFW"] = "SparkEngine/vendor/GLFW/include"
+
+include "SparkEngine/vendor/glad"
+include "SparkEngine/vendor/GLFW"
+
 project "SparkEngine"
 	location "SparkEngine"
 	kind "SharedLib"
@@ -32,7 +39,8 @@ project "SparkEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/vendor/GLFW/include"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glad}"
 	}
 
 	libdirs
@@ -42,7 +50,8 @@ project "SparkEngine"
 
 	links
 	{
-		"glfw3.lib",
+		"glad",
+		"GLFW",
 		"opengl32.lib"
 	}
 
@@ -102,7 +111,8 @@ project "SparkGame"
 	{
 		"SparkEngine/src",
 		"SparkEngine/vendor/spdlog/include",
-		"SparkEngine/vendor/GLFW/include"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glad}"
 	}
 
 	libdirs
@@ -113,7 +123,8 @@ project "SparkGame"
 	links
 	{
 		"SparkEngine",
-		"glfw3.lib",
+		"glad",
+		"GLFW",
 		"opengl32.lib"
 	}
 

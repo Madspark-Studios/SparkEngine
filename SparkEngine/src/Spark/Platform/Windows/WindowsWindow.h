@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Spark/Window.h"
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 namespace Spark
