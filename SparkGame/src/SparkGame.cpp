@@ -8,8 +8,7 @@ public:
 
 	void OnUpdate() override
 	{
-		//if (Spark::Input::IsKeyPressed(SPARK_KEY_TAB))
-		//	SPARK_TRACE("TAB KEY PRESSED");
+		
 	}
 
 	void OnEvent(Spark::Event& e) override
