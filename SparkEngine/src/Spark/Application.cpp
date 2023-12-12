@@ -17,6 +17,9 @@ namespace Spark
 		SPARK_INFO("Initialized");
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		m_ImGUILayer = new ImGUILayer();
+		PushOverlay(m_ImGUILayer);
 	}
 
 	Application::~Application()
@@ -57,11 +60,12 @@ namespace Spark
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
-			{
 				layer->OnUpdate();
-			}
-			//auto [x, y] = Input::GetMousePos();
-			//SPARK_CORE_TRACE("{0}, {1}", x, y);
+
+			m_ImGUILayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGUIRender();
+			m_ImGUILayer->End();
 
 			m_Window->OnUpdate();
 		}

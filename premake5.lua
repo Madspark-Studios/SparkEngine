@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["glad"] = "SparkEngine/vendor/glad/include"
 IncludeDir["GLFW"] = "SparkEngine/vendor/GLFW/include"
 IncludeDir["imgui"] = "SparkEngine/vendor/imgui"
+IncludeDir["glm"] = "SparkEngine/vendor/glm"
 
 include "SparkEngine/vendor/glad"
 include "SparkEngine/vendor/GLFW"
@@ -22,8 +23,10 @@ include "SparkEngine/vendor/imgui"
 
 project "SparkEngine"
 	location "SparkEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-tmp/" .. outputDir .. "/%{prj.name}")
@@ -43,7 +46,8 @@ project "SparkEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	libdirs
@@ -59,9 +63,12 @@ project "SparkEngine"
 		"opengl32.lib"
 	}
 
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -72,27 +79,19 @@ project "SparkEngine"
 			"_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/SparkGame")
-		}
-
 	filter "configurations:Debug"
 		defines "SPARK_DEBUG"
-		symbols "On"
-		staticruntime "off"
+		symbols "on"
 		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "SPARK_RELEASE"
-		optimize "On"
-		staticruntime "off"
+		optimize "on"
 		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "SPARK_DIST"
-		optimize "On"
-		staticruntime "off"
+		optimize "on"
 		runtime "Release"
 
 
@@ -101,6 +100,8 @@ project "SparkGame"
 	location "SparkGame"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-tmp/" .. outputDir .. "/%{prj.name}")
@@ -117,7 +118,8 @@ project "SparkGame"
 		"SparkEngine/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	libdirs
@@ -135,8 +137,6 @@ project "SparkGame"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -148,18 +148,15 @@ project "SparkGame"
 
 	filter "configurations:Debug"
 		defines "SPARK_DEBUG"
-		symbols "On"
-		staticruntime "off"
+		symbols "on"
 		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "SPARK_RELEASE"
-		optimize "On"
-		staticruntime "off"
+		optimize "on"
 		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "SPARK_DIST"
-		optimize "On"
-		staticruntime "off"
+		optimize "on"
 		runtime "Release"

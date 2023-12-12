@@ -64,7 +64,7 @@ namespace Spark
 		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		SCREEN_WIDTH = mode->width;
 		SCREEN_HEIGHT = mode->height;
-		ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT;
+		ASPECT_RATIO = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 		glfwSetWindowPos(m_Window, (SCREEN_WIDTH - props.Width) / 2, (SCREEN_HEIGHT - props.Height) / 2);
 
 		//Set GLFW callbacks

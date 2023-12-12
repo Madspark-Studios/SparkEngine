@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef SPARK_PLATFORM_WINDOWS
+#if SPARK_DYNAMIC_LINK
 	#ifdef SPARK_BUILD_DLL
 		#define SPARK_API __declspec(dllexport)
 	#else
 		#define SPARK_API __declspec(dllimport)
 	#endif
+#else
+#define SPARK_API
+#endif
 #else
 	#error SPARK CURRENTLY ONLY SUPPORTS WINDOWS
 #endif

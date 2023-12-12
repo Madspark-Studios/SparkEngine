@@ -7,3 +7,6 @@
 [submodule "SparkEngine/vendor/imgui"]
 	path = SparkEngine/vendor/imgui
 	url = https://github.com/Madspark-Studios/imguiForSparkEngine
+[submodule "SparkEngine/vendor/glm"]
+	path = SparkEngine/vendor/glm
+	url = https://github.com/g-truc/glm

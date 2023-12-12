@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "Window.h"
 #include "Spark/LayerStack.h"
+#include "Spark/imgui/ImGUILayer.h"
 #include "Spark/Events/Event.h"
 #include "Spark/Events/ApplicationEvent.h"
 
@@ -25,6 +26,7 @@ namespace Spark
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> m_Window;
+		ImGUILayer* m_ImGUILayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;

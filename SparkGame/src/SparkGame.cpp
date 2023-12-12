@@ -14,11 +14,7 @@ public:
 
 	void OnEvent(Spark::Event& e) override
 	{
-		//if (e.GetEventType() == Spark::EventType::KeyPressed)
-		//{
-		//	Spark::KeyPressedEvent& event = (Spark::KeyPressedEvent&)e;
-		//	SPARK_TRACE("{0}", (char)event.GetKeyCode());
-		//}
+		
 	}
 };
 
@@ -28,7 +24,6 @@ public:
 	SparkGame()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Spark::ImGUILayer());
 	}
 
 	~SparkGame()

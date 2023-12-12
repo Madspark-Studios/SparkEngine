@@ -13,6 +13,9 @@
     <Filter Include="Spark\Platform\Windows">
       <UniqueIdentifier>{741303E5-600D-2C37-497A-C247351392A3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Spark\imgui">
+      <UniqueIdentifier>{101A73E7-7CCF-EBDC-05C4-E5B37178E2E0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Spark.h" />
@@ -37,6 +40,12 @@
     <ClInclude Include="src\Spark\Events\MouseEvent.h">
       <Filter>Spark\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Spark\Input.h">
+      <Filter>Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\KeyCodes.h">
+      <Filter>Spark</Filter>
+    </ClInclude>
     <ClInclude Include="src\Spark\Layer.h">
       <Filter>Spark</Filter>
     </ClInclude>
@@ -46,19 +55,22 @@
     <ClInclude Include="src\Spark\Log.h">
       <Filter>Spark</Filter>
     </ClInclude>
+    <ClInclude Include="src\Spark\MouseButtonCodes.h">
+      <Filter>Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Spark\Platform\Windows\WindowsInput.h">
+      <Filter>Spark\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h">
       <Filter>Spark\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Spark\Window.h">
       <Filter>Spark</Filter>
     </ClInclude>
+    <ClInclude Include="src\Spark\imgui\ImGUILayer.h">
+      <Filter>Spark\imgui</Filter>
+    </ClInclude>
     <ClInclude Include="src\SparkPCH.h" />
-    <ClInclude Include="src\Spark\imgui\ImGUILayer.h" />
-    <ClInclude Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.h" />
-    <ClInclude Include="src\Spark\Input.h" />
-    <ClInclude Include="src\Spark\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Spark\KeyCodes.h" />
-    <ClInclude Include="src\Spark\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
@@ -73,12 +85,18 @@
     <ClCompile Include="src\Spark\Log.cpp">
       <Filter>Spark</Filter>
     </ClCompile>
+    <ClCompile Include="src\Spark\Platform\Windows\WindowsInput.cpp">
+      <Filter>Spark\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp">
       <Filter>Spark\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\Spark\imgui\ImGUIBuild.cpp">
+      <Filter>Spark\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Spark\imgui\ImGUILayer.cpp">
+      <Filter>Spark\imgui</Filter>
+    </ClCompile>
     <ClCompile Include="src\SparkPCH.cpp" />
-    <ClCompile Include="src\Spark\imgui\ImGUILayer.cpp" />
-    <ClCompile Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.cpp" />
-    <ClCompile Include="src\Spark\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
