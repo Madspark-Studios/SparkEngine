@@ -53,6 +53,8 @@
       <Filter>Spark</Filter>
     </ClInclude>
     <ClInclude Include="src\SparkPCH.h" />
+    <ClInclude Include="src\Spark\imgui\ImGUILayer.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
@@ -71,5 +73,7 @@
       <Filter>Spark\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\SparkPCH.cpp" />
+    <ClCompile Include="src\Spark\imgui\ImGUILayer.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

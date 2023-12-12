@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -104,7 +104,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -132,7 +132,7 @@
       <PrecompiledHeaderFile>SparkPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>SPARK_PLATFORM_WINDOWS;SPARK_BUILD_DLL;SPARK_ENABLE_ASSERTS;_SILENCE_ALL_MS_EXT_DEPRECATION_WARNINGS;SPARK_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -155,6 +155,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Spark\imgui\ImGUILayer.h" />
     <ClInclude Include="src\Spark.h" />
     <ClInclude Include="src\Spark\Application.h" />
     <ClInclude Include="src\Spark\Core.h" />
@@ -166,15 +167,18 @@
     <ClInclude Include="src\Spark\Layer.h" />
     <ClInclude Include="src\Spark\LayerStack.h" />
     <ClInclude Include="src\Spark\Log.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Spark\Window.h" />
     <ClInclude Include="src\SparkPCH.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Spark\imgui\ImGUILayer.cpp" />
     <ClCompile Include="src\Spark\Application.cpp" />
     <ClCompile Include="src\Spark\Layer.cpp" />
     <ClCompile Include="src\Spark\LayerStack.cpp" />
     <ClCompile Include="src\Spark\Log.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.cpp" />
     <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\SparkPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -186,6 +190,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\imgui.vcxproj">
+      <Project>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
