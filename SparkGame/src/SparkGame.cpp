@@ -8,12 +8,17 @@ public:
 
 	void OnUpdate() override
 	{
-		
+		//if (Spark::Input::IsKeyPressed(SPARK_KEY_TAB))
+		//	SPARK_TRACE("TAB KEY PRESSED");
 	}
 
 	void OnEvent(Spark::Event& e) override
 	{
-		
+		//if (e.GetEventType() == Spark::EventType::KeyPressed)
+		//{
+		//	Spark::KeyPressedEvent& event = (Spark::KeyPressedEvent&)e;
+		//	SPARK_TRACE("{0}", (char)event.GetKeyCode());
+		//}
 	}
 };
 

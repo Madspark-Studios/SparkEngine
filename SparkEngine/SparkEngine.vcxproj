@@ -164,10 +164,14 @@
     <ClInclude Include="src\Spark\Events\Event.h" />
     <ClInclude Include="src\Spark\Events\KeyEvent.h" />
     <ClInclude Include="src\Spark\Events\MouseEvent.h" />
+    <ClInclude Include="src\Spark\Input.h" />
+    <ClInclude Include="src\Spark\KeyCodes.h" />
     <ClInclude Include="src\Spark\Layer.h" />
     <ClInclude Include="src\Spark\LayerStack.h" />
     <ClInclude Include="src\Spark\Log.h" />
+    <ClInclude Include="src\Spark\MouseButtonCodes.h" />
     <ClInclude Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.h" />
+    <ClInclude Include="src\Spark\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Spark\Window.h" />
     <ClInclude Include="src\SparkPCH.h" />
@@ -179,6 +183,7 @@
     <ClCompile Include="src\Spark\LayerStack.cpp" />
     <ClCompile Include="src\Spark\Log.cpp" />
     <ClCompile Include="src\Spark\Platform\OpenGL\ImGUIOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Spark\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\SparkPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

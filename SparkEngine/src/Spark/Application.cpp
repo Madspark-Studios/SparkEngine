@@ -1,5 +1,6 @@
 #include "SparkPCH.h"
 #include "Application.h"
+#include "Input.h"
 
 #include <glad/gl.h>
 
@@ -59,6 +60,8 @@ namespace Spark
 			{
 				layer->OnUpdate();
 			}
+			//auto [x, y] = Input::GetMousePos();
+			//SPARK_CORE_TRACE("{0}, {1}", x, y);
 
 			m_Window->OnUpdate();
 		}
