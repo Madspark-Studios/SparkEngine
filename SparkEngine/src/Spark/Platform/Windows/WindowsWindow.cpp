@@ -113,6 +113,14 @@ namespace Spark
 			}
 		});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			KeyTypedEvent event(keycode);
+			data.EventCallback(event);
+		});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int key, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -127,7 +135,7 @@ namespace Spark
 				}
 				case GLFW_RELEASE:
 				{
-					MouseButtonPressedEvent event(key);
+					MouseButtonReleasedEvent event(key);
 					data.EventCallback(event);
 					break;
 				}
