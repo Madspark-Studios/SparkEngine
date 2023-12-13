@@ -83,6 +83,8 @@
     <ClInclude Include="src\Spark\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Spark\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Spark\Renderer\Camera.h" />
+    <ClInclude Include="src\Spark\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
@@ -120,5 +122,7 @@
     <ClCompile Include="src\Spark\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Spark\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Spark\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Spark\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>

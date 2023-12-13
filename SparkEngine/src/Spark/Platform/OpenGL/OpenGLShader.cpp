@@ -1,7 +1,8 @@
 #include "SparkPCH.h"
 #include "OpenGLShader.h"
 
-#include <glad/gl.h>
+#include "OpenGL.h"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Spark
 {
@@ -131,5 +132,12 @@ namespace Spark
 	void Spark::OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix) const
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

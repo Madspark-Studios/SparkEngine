@@ -4,7 +4,7 @@ class ExampleLayer : public Spark::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example") {}
+		:Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f) {}
 
 	void OnAttach() override
 	{
@@ -79,11 +79,13 @@ public:
 			layout(location = 2) in vec2 a_TexCoord;
 			
 			out vec4 Color;
+
+			uniform mat4 u_ViewProjection;
 			
 			void main()
 			{
 				Color = a_Color;
-				gl_Position = vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -101,17 +103,19 @@ public:
 			}
 		)";
 
-		shader.reset(new Spark::OpenGLShader(vertexSource, fragmentSource));
+		shader.reset(Spark::Shader::Create(vertexSource, fragmentSource));
 
 		std::string vertexSource2 =
 			R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Pos;
+
+			uniform mat4 u_ViewProjection;
 			
 			void main()
 			{
-				gl_Position = vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -123,20 +127,22 @@ public:
 			
 			void main()
 			{
-				FragColor = vec4(0.0, 0.5, 0.5, 1.0);
+				FragColor = vec4(0.2, 0.6, 0.6, 1.0);
 			}
 		)";
 
-		shader2.reset(new Spark::OpenGLShader(vertexSource2, fragmentSource2));
+		shader2.reset(Spark::Shader::Create(vertexSource2, fragmentSource2));
 	}
 
 	void OnUpdate() override
 	{
-		Spark::Renderer::BeginScene();
-		shader2->Bind();
-		Spark::Renderer::Draw(squareVertexArray);
-		shader->Bind();
-		Spark::Renderer::Draw(vertexArray);
+		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
+		m_Camera.SetYaw(45.0f);
+		m_Camera.SetPitch(45.0f);
+		m_Camera.SetRoll(45.0f);
+		Spark::Renderer::BeginScene(m_Camera);
+		Spark::Renderer::Draw(squareVertexArray, shader2);
+		Spark::Renderer::Draw(vertexArray, shader);
 		Spark::Renderer::EndScene();
 	}
 
@@ -146,10 +152,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Spark::OpenGLShader> shader;
-	std::shared_ptr<Spark::OpenGLShader> shader2;
+	std::shared_ptr<Spark::Shader> shader;
+	std::shared_ptr<Spark::Shader> shader2;
 	std::shared_ptr<Spark::VertexArray> vertexArray;
 	std::shared_ptr<Spark::VertexArray> squareVertexArray;
+	Spark::OrthographicCamera m_Camera;
 };
 
 class SparkGame : public Spark::Application

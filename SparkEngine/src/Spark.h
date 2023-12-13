@@ -17,4 +17,5 @@
 #include "Spark/Renderer/Renderer.h"
 #include "Spark/Renderer/Buffer.h"
 #include "Spark/Renderer/VertexArray.h"
-#include "Spark/Platform/OpenGL/OpenGLShader.h"
+#include "Spark/Renderer/Shader.h"
+#include "Spark/Renderer/Camera.h"
