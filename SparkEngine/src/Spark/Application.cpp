@@ -40,6 +40,7 @@ namespace Spark
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -72,5 +73,12 @@ namespace Spark
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		m_Window->GetRenderContext()->Resize(e.GetWidth(), e.GetHeight());
+		
+		return false;
 	}
 }

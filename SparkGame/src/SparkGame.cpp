@@ -4,7 +4,7 @@ class ExampleLayer : public Spark::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f) {}
+		:Layer("Example"), m_Camera(60.0f,  16.0f / 9.0f, 0.1f, 100.0f) {}
 
 	void OnAttach() override
 	{
@@ -136,14 +136,27 @@ public:
 
 	void OnUpdate() override
 	{
-		m_Camera.SetPosition({ 0.5f, 0.5f, 0.0f });
-		m_Camera.SetYaw(45.0f);
-		m_Camera.SetPitch(45.0f);
-		m_Camera.SetRoll(45.0f);
+		m_Camera.SetPosition({ m_CameraPosX, m_CameraPosY, m_CameraPosZ });
+		m_Camera.SetYaw(-m_CameraYaw);
+		m_Camera.SetPitch(m_CameraPitch);
+		m_Camera.SetRoll(m_CameraRoll);
 		Spark::Renderer::BeginScene(m_Camera);
 		Spark::Renderer::Draw(squareVertexArray, shader2);
 		Spark::Renderer::Draw(vertexArray, shader);
 		Spark::Renderer::EndScene();
+	}
+
+	void OnImGUIRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Camera");
+		ImGui::SliderFloat("X", &m_CameraPosX, -5.0f, 5.0f);
+		ImGui::SliderFloat("Y", &m_CameraPosY, -5.0f, 5.0f);
+		ImGui::SliderFloat("Z", &m_CameraPosZ, -5.0f, 5.0f);
+		ImGui::SliderFloat("Yaw", &m_CameraYaw, -360.0f, 360.0f);
+		ImGui::SliderFloat("Pitch", &m_CameraPitch, -90.0f, 90.0f);
+		ImGui::SliderFloat("Roll", &m_CameraRoll, -45.0f, 45.0f);
+		ImGui::End();
 	}
 
 	void OnEvent(Spark::Event& e) override
@@ -156,7 +169,13 @@ private:
 	std::shared_ptr<Spark::Shader> shader2;
 	std::shared_ptr<Spark::VertexArray> vertexArray;
 	std::shared_ptr<Spark::VertexArray> squareVertexArray;
-	Spark::OrthographicCamera m_Camera;
+	Spark::PerspectiveCamera m_Camera;
+	float m_CameraPosX = 0;
+	float m_CameraPosY = 0;
+	float m_CameraPosZ = 3;
+	float m_CameraYaw = 0;
+	float m_CameraPitch = 0;
+	float m_CameraRoll = 0;
 };
 
 class SparkGame : public Spark::Application

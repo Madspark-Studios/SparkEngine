@@ -10,6 +10,12 @@ namespace Spark
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
+	PerspectiveCamera::PerspectiveCamera(float fov, float aspectRatio, float nearPlane, float farPlane)
+	{
+		m_ProjectionMatrix = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
 	void Camera::RecalculateViewMatrix()
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) *

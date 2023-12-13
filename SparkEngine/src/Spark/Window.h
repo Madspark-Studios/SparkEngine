@@ -2,6 +2,7 @@
 #include "SparkPCH.h"
 #include "Spark/Core.h"
 #include "Spark/Events/Event.h"
+#include "Spark/Renderer/RenderContext.h"
 
 namespace Spark
 {
@@ -38,7 +39,10 @@ namespace Spark
 		virtual bool IsVSync() const = 0;
 
 		virtual void* GetNativeWindow() const = 0;
+		inline RenderContext* GetRenderContext() { return m_Context; }
 
 		static Window* Create(const WindowProps& props = WindowProps());
+	protected:
+		RenderContext* m_Context;
 	};
 }

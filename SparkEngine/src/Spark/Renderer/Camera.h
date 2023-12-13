@@ -44,4 +44,10 @@ namespace Spark
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 	};
+
+	class PerspectiveCamera : public Camera
+	{
+	public:
+		PerspectiveCamera(float fov, float aspectRatio, float nearPlane, float farPlane);
+	};
 }

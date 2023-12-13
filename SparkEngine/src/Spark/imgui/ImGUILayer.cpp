@@ -86,8 +86,7 @@ namespace Spark
 
 	void ImGUILayer::OnImGUIRender()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		
 	}
 
 }

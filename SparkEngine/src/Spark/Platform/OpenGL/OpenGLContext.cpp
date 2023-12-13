@@ -23,4 +23,9 @@ namespace Spark
 	{
 		glfwSwapBuffers(m_Window);
 	}
+
+	void OpenGLContext::Resize(unsigned int width, unsigned int height)
+	{
+		glViewport(0, 0, width, height);
+	}
 }

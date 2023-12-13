@@ -12,6 +12,7 @@ namespace Spark
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;
+		virtual void Resize(unsigned int width, unsigned int height) override;
 	private:
 		GLFWwindow* m_Window;
 	};
