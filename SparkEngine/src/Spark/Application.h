@@ -6,6 +6,8 @@
 #include "Spark/Events/Event.h"
 #include "Spark/Events/ApplicationEvent.h"
 
+#include "Spark/Platform/OpenGL/OpenGLShader.h"
+
 namespace Spark
 {
 	class SPARK_API Application
@@ -30,6 +32,9 @@ namespace Spark
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
+
+		unsigned int VAO, VBO;
+		OpenGLShader* shader;
 	};
 	//TO BE DEFINED IN CLIENT
 	Application* CreateApplication();

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Spark/Window.h"
-#include <glad/gl.h>
+#include "Spark/Renderer/RenderContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Spark
@@ -28,6 +29,7 @@ namespace Spark
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		RenderContext* m_Context;
 
 		struct WindowData
 		{

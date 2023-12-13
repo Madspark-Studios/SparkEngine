@@ -146,6 +146,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Spark.h" />
     <ClInclude Include="src\Spark\Application.h" />
     <ClInclude Include="src\Spark\Core.h" />
@@ -162,11 +164,14 @@
     <ClInclude Include="src\Spark\MouseButtonCodes.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Spark\Renderer\RenderContext.h" />
     <ClInclude Include="src\Spark\Window.h" />
     <ClInclude Include="src\Spark\imgui\ImGUILayer.h" />
     <ClInclude Include="src\SparkPCH.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Spark\Application.cpp" />
     <ClCompile Include="src\Spark\Layer.cpp" />
     <ClCompile Include="src\Spark\LayerStack.cpp" />

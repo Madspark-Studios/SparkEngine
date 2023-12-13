@@ -20,6 +20,55 @@ namespace Spark
 
 		m_ImGUILayer = new ImGUILayer();
 		PushOverlay(m_ImGUILayer);
+
+
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+		glGenBuffers(1, &VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+		float vertices[] =
+		{
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.0f,  0.5f, 0.0f
+		};
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		std::string vertexSource =
+R"(
+#version 330 core
+
+layout(location = 0) in vec3 a_Pos;
+
+out vec3 pos;
+
+void main()
+{
+	pos = a_Pos;
+	gl_Position = vec4(a_Pos, 1.0);
+}
+)";
+
+		std::string fragmentSource =
+R"(
+#version 330 core
+
+in vec3 pos;
+
+out vec4 FragColor;
+
+void main()
+{
+	FragColor = vec4(pos * 0.5 + 0.5, 1.0);
+}
+)";
+
+		shader = new OpenGLShader(vertexSource, fragmentSource);
+		shader->Bind();
 	}
 
 	Application::~Application()
@@ -56,7 +105,7 @@ namespace Spark
 		{
 			glClearColor(0.075f, 0.075f, 0.075f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
-
+			glDrawArrays(GL_TRIANGLES, 0, 3);
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
