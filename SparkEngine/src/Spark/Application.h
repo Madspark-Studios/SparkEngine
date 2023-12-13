@@ -6,10 +6,6 @@
 #include "Spark/Events/Event.h"
 #include "Spark/Events/ApplicationEvent.h"
 
-#include "Spark/Renderer/Buffer.h"
-#include "Spark/Renderer/VertexArray.h"
-#include "Spark/Platform/OpenGL/OpenGLShader.h"
-
 namespace Spark
 {
 	class SPARK_API Application
@@ -34,11 +30,6 @@ namespace Spark
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
-
-		std::shared_ptr<OpenGLShader> shader;
-		std::shared_ptr<OpenGLShader> shader2;
-		std::shared_ptr<VertexArray> vertexArray;
-		std::shared_ptr<VertexArray> squareVertexArray;
 	};
 	//TO BE DEFINED IN CLIENT
 	Application* CreateApplication();

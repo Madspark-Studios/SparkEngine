@@ -71,6 +71,18 @@
       <Filter>Spark\imgui</Filter>
     </ClInclude>
     <ClInclude Include="src\SparkPCH.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGL.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Spark\Renderer\Buffer.h" />
+    <ClInclude Include="src\Spark\Renderer\RenderContext.h" />
+    <ClInclude Include="src\Spark\Renderer\Renderer.h" />
+    <ClInclude Include="src\Spark\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Spark\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Spark\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">
@@ -98,5 +110,15 @@
       <Filter>Spark\imgui</Filter>
     </ClCompile>
     <ClCompile Include="src\SparkPCH.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Spark\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Spark\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Spark\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Spark\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Spark\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

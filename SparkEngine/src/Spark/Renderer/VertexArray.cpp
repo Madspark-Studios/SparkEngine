@@ -9,10 +9,10 @@ namespace Spark
 	{
 		switch (Renderer::GetAPI())
 		{
-		case(RendererAPI::None):
+		case(RendererAPI::API::None):
 			SPARK_CORE_ASSERT(false, "No Render API is not supported");
 			return nullptr;
-		case(RendererAPI::OpenGL):
+		case(RendererAPI::API::OpenGL):
 			return new OpenGLVertexArray();
 		}
 		SPARK_CORE_ASSERT(false, "Unknown Render API");
