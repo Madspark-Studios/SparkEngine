@@ -8,6 +8,24 @@ namespace Spark
 {
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+	static GLenum ShaderDataTypeToOPenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+		case ShaderDataType::Float:		return GL_FLOAT;
+		case ShaderDataType::Float2:	return GL_FLOAT;
+		case ShaderDataType::Float3:	return GL_FLOAT;
+		case ShaderDataType::Float4:	return GL_FLOAT;
+		case ShaderDataType::Mat3:		return GL_FLOAT_MAT3;
+		case ShaderDataType::Mat4:		return GL_FLOAT_MAT4;
+		case ShaderDataType::Int:		return GL_INT;
+		case ShaderDataType::Int2:		return GL_INT;
+		case ShaderDataType::Int3:		return GL_INT;
+		case ShaderDataType::Int4:		return GL_INT;
+		case ShaderDataType::Bool:		return GL_BOOL;
+		}
+	}
+
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
@@ -22,14 +40,12 @@ namespace Spark
 		PushOverlay(m_ImGUILayer);
 
 
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
 		float vertices[] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+			//Positions				//Color						//UVs
+			-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,		0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,		1.0f, 0.0f,
+			 0.0f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f,		0.5f, 1.0f
 		};
 
 		uint32_t indices[] =
@@ -37,22 +53,46 @@ namespace Spark
 			0, 1, 2
 		};
 
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+
 		vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-		indexBuffer = IndexBuffer::Create(indices, 3);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		{
+			BufferLayout layout =
+			{
+				{ ShaderDataType::Float3, "a_Pos" },
+				{ ShaderDataType::Float4, "a_Color" },
+				{ ShaderDataType::Float2, "a_TexCoord" }
+			};
+			vertexBuffer->SetLayout(layout);
+		}
+
+		uint32_t index = 0;
+		const auto& layout = vertexBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, element.GetComponentCount(), 
+				ShaderDataTypeToOPenGLBaseType(element.Type), 
+				element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(),
+				(const void*)element.Offset);
+			index++;
+		}
 
 		std::string vertexSource =
 		R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Pos;
+			layout(location = 1) in vec4 a_Color;
+			layout(location = 2) in vec2 a_TexCoord;
 			
-			out vec3 pos;
+			out vec4 Color;
 			
 			void main()
 			{
-				pos = a_Pos;
+				Color = a_Color;
 				gl_Position = vec4(a_Pos, 1.0);
 			}
 		)";
@@ -61,13 +101,13 @@ namespace Spark
 		R"(
 			#version 330 core
 			
-			in vec3 pos;
+			in vec4 Color;
 			
 			out vec4 FragColor;
 			
 			void main()
 			{
-				FragColor = vec4(pos * 0.5 + 0.5, 1.0);
+				FragColor = Color;
 			}
 		)";
 

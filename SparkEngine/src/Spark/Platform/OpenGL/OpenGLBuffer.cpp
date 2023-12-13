@@ -1,6 +1,6 @@
 #include "SparkPCH.h"
 #include "OpenGLBuffer.h"
-#include <glad/gl.h>
+#include "OpenGL.h"
 
 namespace Spark
 {
@@ -11,20 +11,25 @@ namespace Spark
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	{
 		glCreateBuffers(1, &m_RendererID);
+		glCheckError();
 		Bind();
 		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		glCheckError();
 	}
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
 		glDeleteBuffers(1, &m_RendererID);
+		glCheckError();
 	}
 	void OpenGLVertexBuffer::Bind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glCheckError();
 	}
 	void OpenGLVertexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glCheckError();
 	}
 
 	//////////////////////////////////////////////////
@@ -35,19 +40,24 @@ namespace Spark
 		:m_Count(count)
 	{
 		glCreateBuffers(1, &m_RendererID);
+		glCheckError();
 		Bind();
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+		glCheckError();
 	}
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
 		glDeleteBuffers(1, &m_RendererID);
+		glCheckError();
 	}
 	void OpenGLIndexBuffer::Bind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
+		glCheckError();
 	}
 	void OpenGLIndexBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glCheckError();
 	}
 }

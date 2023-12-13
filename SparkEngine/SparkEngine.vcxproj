@@ -146,6 +146,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGL.h" />
     <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLContext.h" />
