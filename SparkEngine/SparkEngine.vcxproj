@@ -164,11 +164,13 @@
     <ClInclude Include="src\Spark\LayerStack.h" />
     <ClInclude Include="src\Spark\Log.h" />
     <ClInclude Include="src\Spark\MouseButtonCodes.h" />
+    <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Spark\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\Spark\Renderer\Buffer.h" />
     <ClInclude Include="src\Spark\Renderer\RenderContext.h" />
     <ClInclude Include="src\Spark\Renderer\Renderer.h" />
+    <ClInclude Include="src\Spark\Renderer\VertexArray.h" />
     <ClInclude Include="src\Spark\Window.h" />
     <ClInclude Include="src\Spark\imgui\ImGUILayer.h" />
     <ClInclude Include="src\SparkPCH.h" />
@@ -181,6 +183,7 @@
     <ClCompile Include="src\Spark\Layer.cpp" />
     <ClCompile Include="src\Spark\LayerStack.cpp" />
     <ClCompile Include="src\Spark\Log.cpp" />
+    <ClCompile Include="src\Spark\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Spark\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Spark\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Spark\imgui\ImGUIBuild.cpp" />
@@ -190,6 +193,7 @@
     </ClCompile>
     <ClCompile Include="src\Spark\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Spark\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Spark\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\glad\glad.vcxproj">

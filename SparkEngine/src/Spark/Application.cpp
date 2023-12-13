@@ -8,24 +8,6 @@ namespace Spark
 {
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
-	static GLenum ShaderDataTypeToOPenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case ShaderDataType::Float:		return GL_FLOAT;
-		case ShaderDataType::Float2:	return GL_FLOAT;
-		case ShaderDataType::Float3:	return GL_FLOAT;
-		case ShaderDataType::Float4:	return GL_FLOAT;
-		case ShaderDataType::Mat3:		return GL_FLOAT_MAT3;
-		case ShaderDataType::Mat4:		return GL_FLOAT_MAT4;
-		case ShaderDataType::Int:		return GL_INT;
-		case ShaderDataType::Int2:		return GL_INT;
-		case ShaderDataType::Int3:		return GL_INT;
-		case ShaderDataType::Int4:		return GL_INT;
-		case ShaderDataType::Bool:		return GL_BOOL;
-		}
-	}
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
@@ -43,9 +25,9 @@ namespace Spark
 		float vertices[] =
 		{
 			//Positions				//Color						//UVs
-			-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, 1.0f,		0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, 1.0f,		1.0f, 0.0f,
-			 0.0f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f, 1.0f,		0.5f, 1.0f
+			-0.5f, -0.5f, 0.0f,		0.8f, 0.3f, 0.2f, 1.0f,		0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,		0.2f, 0.8f, 0.6f, 1.0f,		1.0f, 0.0f,
+			 0.0f,  0.5f, 0.0f,		0.2f, 0.4f, 0.8f, 1.0f,		0.5f, 1.0f
 		};
 
 		uint32_t indices[] =
@@ -53,11 +35,11 @@ namespace Spark
 			0, 1, 2
 		};
 
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
-		vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-		indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		vertexArray.reset(VertexArray::Create());
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		{
 			BufferLayout layout =
 			{
@@ -67,18 +49,39 @@ namespace Spark
 			};
 			vertexBuffer->SetLayout(layout);
 		}
+		vertexArray->AddVertexBuffer(vertexBuffer);
+		vertexArray->SetIndexBuffer(indexBuffer);
 
-		uint32_t index = 0;
-		const auto& layout = vertexBuffer->GetLayout();
-		for (const auto& element : layout)
+		squareVertexArray.reset(VertexArray::Create());
+
+		float vertices2[] =
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetComponentCount(), 
-				ShaderDataTypeToOPenGLBaseType(element.Type), 
-				element.Normalized ? GL_TRUE : GL_FALSE, layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		uint32_t indices2[] =
+		{
+			0, 1, 3,
+			3, 1, 2
+		};
+
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(vertices2, sizeof(vertices2)));
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(indices2, 6));
+		{
+			BufferLayout layout =
+			{
+				{ ShaderDataType::Float3, "a_Pos"}
+			};
+			squareVB->SetLayout(layout);
 		}
+		squareVertexArray->AddVertexBuffer(squareVB);
+		squareVertexArray->SetIndexBuffer(squareIB);
+
 
 		std::string vertexSource =
 		R"(
@@ -111,14 +114,38 @@ namespace Spark
 			}
 		)";
 
-		shader = new OpenGLShader(vertexSource, fragmentSource);
-		shader->Bind();
+		shader.reset(new OpenGLShader(vertexSource, fragmentSource));
+
+		std::string vertexSource2 =
+			R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Pos;
+			
+			void main()
+			{
+				gl_Position = vec4(a_Pos, 1.0);
+			}
+		)";
+
+		std::string fragmentSource2 =
+			R"(
+			#version 330 core
+			
+			out vec4 FragColor;
+			
+			void main()
+			{
+				FragColor = vec4(0.0, 0.5, 0.5, 1.0);
+			}
+		)";
+
+		shader2.reset(new OpenGLShader(vertexSource2, fragmentSource2));
 	}
 
 	Application::~Application()
 	{
-		delete vertexBuffer;
-		delete shader;
+
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -151,7 +178,12 @@ namespace Spark
 			glClearColor(0.075f, 0.075f, 0.075f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			shader2->Bind();
+			squareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			shader->Bind();
+			vertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 
 			for (Layer* layer : m_LayerStack)

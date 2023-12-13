@@ -6,6 +6,11 @@ public:
 	ExampleLayer()
 		:Layer("Example") {}
 
+	void OnAttach() override
+	{
+
+	}
+
 	void OnUpdate() override
 	{
 		
