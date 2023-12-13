@@ -6,6 +6,7 @@
 #include "Spark/Events/Event.h"
 #include "Spark/Events/ApplicationEvent.h"
 
+#include "Spark/Renderer/Buffer.h"
 #include "Spark/Platform/OpenGL/OpenGLShader.h"
 
 namespace Spark
@@ -33,8 +34,10 @@ namespace Spark
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
 
-		unsigned int VAO, VBO;
+		unsigned int VAO;
 		OpenGLShader* shader;
+		VertexBuffer* vertexBuffer;
+		IndexBuffer* indexBuffer;
 	};
 	//TO BE DEFINED IN CLIENT
 	Application* CreateApplication();
