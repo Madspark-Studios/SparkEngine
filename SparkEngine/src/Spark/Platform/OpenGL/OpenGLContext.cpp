@@ -17,6 +17,7 @@ namespace Spark
 		glfwMakeContextCurrent(m_Window);
 		int status = gladLoadGL(glfwGetProcAddress);
 		SPARK_CORE_ASSERT(status, "Failed to initialize glad");
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void OpenGLContext::SwapBuffers()

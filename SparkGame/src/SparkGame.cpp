@@ -4,7 +4,7 @@ class ExampleLayer : public Spark::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_Camera(60.0f,  16.0f / 9.0f, 0.1f, 100.0f)
+		:Layer("Example"), m_Camera(60.0f,  16.0f / 9.0f, 0.1f, 100.0f), m_SquarePos(0.0f, 0.0f, -0.1f)
 	{
 		m_CameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 	}
@@ -84,11 +84,12 @@ public:
 			out vec4 Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 			
 			void main()
 			{
 				Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -115,10 +116,11 @@ public:
 			layout(location = 0) in vec3 a_Pos;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 			
 			void main()
 			{
-				gl_Position = u_ViewProjection * vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -156,9 +158,9 @@ public:
 		if (!Spark::Application::Get().GetWindow().IsCursorShown())
 		{
 			if (Spark::Input::IsKeyDown(SPARK_KEY_W))
-				moveDir.z = -1.0f;
-			if (Spark::Input::IsKeyDown(SPARK_KEY_S))
 				moveDir.z = 1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_S))
+				moveDir.z = -1.0f;
 			if (Spark::Input::IsKeyDown(SPARK_KEY_A))
 				moveDir.x = -1.0f;
 			if (Spark::Input::IsKeyDown(SPARK_KEY_D))
@@ -171,7 +173,7 @@ public:
 			auto [x, y] = Spark::Input::GetMousePos();
 			float mouseDiff = x - lastMouseX;
 			lastMouseX = x;
-			m_CameraYaw += mouseDiff * mouseSens;
+			m_CameraYaw -= mouseDiff * mouseSens;
 			mouseDiff = y - lastMouseY;
 			lastMouseY = y;
 			m_CameraPitch -= mouseDiff * mouseSens;
@@ -188,15 +190,21 @@ public:
 		}
 
 		if (glm::length(moveDir) > 0.0f)
-			m_CameraPos += glm::normalize(moveDir) * (moveSpeed * deltaTime);
+		{
+			m_CameraPos += (glm::normalize(moveDir).x * m_Camera.GetRight()) * (moveSpeed * deltaTime);
+			m_CameraPos += (glm::normalize(moveDir).y * m_Camera.GetUp()) * (moveSpeed * deltaTime);
+			m_CameraPos += (glm::normalize(moveDir).z * m_Camera.GetForward()) * (moveSpeed * deltaTime);
+		}
 
 		m_Camera.SetPosition(m_CameraPos);
 		m_Camera.SetYaw(-m_CameraYaw);
 		m_Camera.SetPitch(m_CameraPitch);
-		m_Camera.SetRoll(m_CameraRoll);
+		//m_Camera.SetRoll(m_CameraRoll);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePos);
 
 		Spark::Renderer::BeginScene(m_Camera);
-		Spark::Renderer::Draw(squareVertexArray, shader2);
+		Spark::Renderer::Draw(squareVertexArray, shader2, transform);
 		Spark::Renderer::Draw(vertexArray, shader);
 		Spark::Renderer::EndScene();
 	}
@@ -204,13 +212,28 @@ public:
 	void OnImGUIRender() override
 	{
 		ImGui::Begin("Test");
-		ImGui::Text("Camera");
-		ImGui::SliderFloat("X", &m_CameraPos.x, -5.0f, 5.0f);
-		ImGui::SliderFloat("Y", &m_CameraPos.y, -5.0f, 5.0f);
-		ImGui::SliderFloat("Z", &m_CameraPos.z, -5.0f, 5.0f);
-		ImGui::SliderFloat("Yaw", &m_CameraYaw, -360.0f, 360.0f);
-		ImGui::SliderFloat("Pitch", &m_CameraPitch, -90.0f, 90.0f);
-		ImGui::SliderFloat("Roll", &m_CameraRoll, -45.0f, 45.0f);
+		ImGui::Text("Square");
+		ImGui::SliderFloat("X", &m_SquarePos.x, -5.0f, 5.0f);
+		ImGui::SliderFloat("Y", &m_SquarePos.y, -5.0f, 5.0f);
+		ImGui::SliderFloat("Z", &m_SquarePos.z, -5.0f, 5.0f);
+
+		float PosX = m_Camera.GetPosition().x;
+		float PosY = m_Camera.GetPosition().y;
+		float PosZ = m_Camera.GetPosition().z;
+
+		ImGui::Text("Camera Position");
+		ImGui::SliderFloat("X", &PosX, -5.0f, 5.0f);
+		ImGui::SliderFloat("Y", &PosY, -5.0f, 5.0f);
+		ImGui::SliderFloat("Z", &PosZ, -5.0f, 5.0f);
+
+		float RotX = m_Camera.GetYaw();
+		float RotY = m_Camera.GetPitch();
+		float RotZ = m_Camera.GetRoll();
+
+		ImGui::Text("Camera Rotation");
+		ImGui::SliderFloat("Yaw", &RotX, -5.0f, 5.0f);
+		ImGui::SliderFloat("Pitch", &RotY, -5.0f, 5.0f);
+		ImGui::SliderFloat("Roll", &RotZ, -5.0f, 5.0f);
 		ImGui::End();
 	}
 
@@ -231,6 +254,7 @@ private:
 	std::shared_ptr<Spark::VertexArray> squareVertexArray;
 	Spark::PerspectiveCamera m_Camera;
 	glm::vec3 m_CameraPos;
+	glm::vec3 m_SquarePos;
 	float m_CameraYaw = 0;
 	float m_CameraPitch = 0;
 	float m_CameraRoll = 0;

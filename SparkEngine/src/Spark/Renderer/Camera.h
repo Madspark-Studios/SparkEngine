@@ -14,6 +14,10 @@ namespace Spark
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 
+		glm::vec3 GetForward() const { return m_Forward; }
+		glm::vec3 GetUp() const { return m_Up; }
+		glm::vec3 GetRight() const { return m_Right; }
+
 		float GetYaw() const { return m_Yaw; }
 		void SetYaw(float degrees) { m_Yaw = degrees; RecalculateViewMatrix(); }
 
@@ -33,8 +37,11 @@ namespace Spark
 		glm::mat4 m_ViewMatrix;
 		glm::mat4 m_ViewProjectionMatrix;
 
-		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		float m_Yaw = 0.0f;
+		glm::vec3 m_Position = { 0.0f, 0.0f, 3.0f };
+		glm::vec3 m_Forward = { 0.0f, 0.0f, -1.0f };
+		glm::vec3 m_Up = { 0.0f, 1.0f, 0.0f };
+		glm::vec3 m_Right = glm::normalize(glm::cross(m_Forward, m_Up));
+		float m_Yaw = -90.0f;
 		float m_Pitch = 0.0f;
 		float m_Roll = 0.0f;
 	};
