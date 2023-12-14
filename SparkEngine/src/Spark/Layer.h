@@ -2,6 +2,7 @@
 
 #include "Spark/Core.h"
 #include "Spark/Events/Event.h"
+#include "Spark/Core/Timestep.h"
 
 namespace Spark
 {
@@ -13,7 +14,7 @@ namespace Spark
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep deltaTime) {}
 		virtual void OnImGUIRender() {}
 		virtual void OnEvent(Event& event) {}
 

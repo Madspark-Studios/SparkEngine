@@ -40,9 +40,15 @@ namespace Spark
 
 		virtual void* GetNativeWindow() const = 0;
 		inline RenderContext* GetRenderContext() { return m_Context; }
+		inline virtual float GetTime() = 0;
+		inline virtual void HideCursor() = 0;
+		inline virtual void ShowCursor() = 0;
+		inline virtual void ToggleCursor() = 0;
+		inline bool IsCursorShown() const { return m_IsCursorShown; }
 
 		static Window* Create(const WindowProps& props = WindowProps());
 	protected:
 		RenderContext* m_Context;
+		bool m_IsCursorShown = true;
 	};
 }

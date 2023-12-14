@@ -8,6 +8,7 @@ namespace Spark
 	{
 	protected:
 		virtual bool IsKeyPressedImpl(int keycode) override;
+		virtual bool IsKeyDownImpl(int keycode) override;
 		virtual bool IsMouseButtonPressedImpl(int button) override;
 		virtual std::pair<float, float> GetMousePosImpl() override;
 	private:

@@ -54,11 +54,15 @@ namespace Spark
 	{
 		while (m_Running)
 		{
+			float time = m_Window->GetTime();
+			m_DeltaTime = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			RenderCommand::SetClearColor({ 0.075f, 0.075f, 0.075f, 1.0f });
 			RenderCommand::Clear();
 
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(m_DeltaTime);
 
 			m_ImGUILayer->Begin();
 			for (Layer* layer : m_LayerStack)

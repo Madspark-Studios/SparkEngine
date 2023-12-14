@@ -94,7 +94,7 @@ namespace Spark
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(key);
 					data.EventCallback(event);
 					break;
 				}
@@ -106,7 +106,7 @@ namespace Spark
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyDownEvent event(key, 1);
 					data.EventCallback(event);
 					break;
 				}

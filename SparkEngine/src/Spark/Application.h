@@ -5,6 +5,7 @@
 #include "Spark/imgui/ImGUILayer.h"
 #include "Spark/Events/Event.h"
 #include "Spark/Events/ApplicationEvent.h"
+#include "Spark/Core/Timestep.h"
 
 namespace Spark
 {
@@ -31,6 +32,8 @@ namespace Spark
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
+		float m_LastFrameTime = 0.0f;
+		Timestep m_DeltaTime = 0.0f;
 	};
 	//TO BE DEFINED IN CLIENT
 	Application* CreateApplication();

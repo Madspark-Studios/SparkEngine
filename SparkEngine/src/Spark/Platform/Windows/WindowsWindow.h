@@ -23,6 +23,10 @@ namespace Spark
 		bool IsVSync() const override;
 
 		inline virtual void* GetNativeWindow() const override { return m_Window; }
+		inline virtual float GetTime() override { return (float)glfwGetTime(); }
+		inline virtual void HideCursor() override { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); m_IsCursorShown = false; }
+		inline virtual void ShowCursor() override { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); m_IsCursorShown = true; }
+		inline virtual void ToggleCursor() override { m_IsCursorShown ? HideCursor() : ShowCursor(); }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

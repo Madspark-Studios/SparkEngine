@@ -12,6 +12,15 @@ namespace Spark
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, keycode);
+		if (state == GLFW_PRESS)
+			SPARK_CORE_INFO("KEY PRESSED");
+		return state == GLFW_PRESS;
+	}
+
+	bool Spark::WindowsInput::IsKeyDownImpl(int keycode)
+	{
+		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetKey(window, keycode);
 
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}

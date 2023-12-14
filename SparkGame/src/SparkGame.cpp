@@ -4,7 +4,10 @@ class ExampleLayer : public Spark::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_Camera(60.0f,  16.0f / 9.0f, 0.1f, 100.0f) {}
+		:Layer("Example"), m_Camera(60.0f,  16.0f / 9.0f, 0.1f, 100.0f)
+	{
+		m_CameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	}
 
 	void OnAttach() override
 	{
@@ -132,14 +135,66 @@ public:
 		)";
 
 		shader2.reset(Spark::Shader::Create(vertexSource2, fragmentSource2));
+
+		Spark::Application::Get().GetWindow().HideCursor();
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Spark::Timestep deltaTime) override
 	{
-		m_Camera.SetPosition({ m_CameraPosX, m_CameraPosY, m_CameraPosZ });
+		if (firstFrame)
+		{
+			lastMouseX = 1280.0f / 2.0f;
+			lastMouseY = 720.0f / 2.0f;
+			firstFrame = false;
+		}
+
+		float moveSpeed = 4.0f;
+		float mouseSens = 0.1f;
+
+		glm::vec3 moveDir = glm::vec3(0.0f, 0.0f, 0.0f);
+
+		if (!Spark::Application::Get().GetWindow().IsCursorShown())
+		{
+			if (Spark::Input::IsKeyDown(SPARK_KEY_W))
+				moveDir.z = -1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_S))
+				moveDir.z = 1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_A))
+				moveDir.x = -1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_D))
+				moveDir.x = 1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_SPACE))
+				moveDir.y = 1.0f;
+			if (Spark::Input::IsKeyDown(SPARK_KEY_LEFT_CONTROL))
+				moveDir.y = -1.0f;
+
+			auto [x, y] = Spark::Input::GetMousePos();
+			float mouseDiff = x - lastMouseX;
+			lastMouseX = x;
+			m_CameraYaw += mouseDiff * mouseSens;
+			mouseDiff = y - lastMouseY;
+			lastMouseY = y;
+			m_CameraPitch -= mouseDiff * mouseSens;
+
+			if (m_CameraPitch > 90.0f)
+				m_CameraPitch = 90.0f;
+			if (m_CameraPitch < -90.0f)
+				m_CameraPitch = -90.0f;
+
+			if (m_CameraYaw > 360.0f)
+				m_CameraYaw = m_CameraYaw - 360.0f;
+			if (m_CameraYaw < -360.0f)
+				m_CameraYaw = m_CameraYaw + 360.0f;
+		}
+
+		if (glm::length(moveDir) > 0.0f)
+			m_CameraPos += glm::normalize(moveDir) * (moveSpeed * deltaTime);
+
+		m_Camera.SetPosition(m_CameraPos);
 		m_Camera.SetYaw(-m_CameraYaw);
 		m_Camera.SetPitch(m_CameraPitch);
 		m_Camera.SetRoll(m_CameraRoll);
+
 		Spark::Renderer::BeginScene(m_Camera);
 		Spark::Renderer::Draw(squareVertexArray, shader2);
 		Spark::Renderer::Draw(vertexArray, shader);
@@ -150,9 +205,9 @@ public:
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Camera");
-		ImGui::SliderFloat("X", &m_CameraPosX, -5.0f, 5.0f);
-		ImGui::SliderFloat("Y", &m_CameraPosY, -5.0f, 5.0f);
-		ImGui::SliderFloat("Z", &m_CameraPosZ, -5.0f, 5.0f);
+		ImGui::SliderFloat("X", &m_CameraPos.x, -5.0f, 5.0f);
+		ImGui::SliderFloat("Y", &m_CameraPos.y, -5.0f, 5.0f);
+		ImGui::SliderFloat("Z", &m_CameraPos.z, -5.0f, 5.0f);
 		ImGui::SliderFloat("Yaw", &m_CameraYaw, -360.0f, 360.0f);
 		ImGui::SliderFloat("Pitch", &m_CameraPitch, -90.0f, 90.0f);
 		ImGui::SliderFloat("Roll", &m_CameraRoll, -45.0f, 45.0f);
@@ -161,7 +216,12 @@ public:
 
 	void OnEvent(Spark::Event& e) override
 	{
-		
+		if (e.GetEventType() == Spark::EventType::KeyPressed)
+		{
+			Spark::KeyPressedEvent& event = (Spark::KeyPressedEvent&)e;
+			if (event.GetKeyCode() == SPARK_KEY_ESCAPE)
+				Spark::Application::Get().GetWindow().ToggleCursor();
+		}
 	}
 
 private:
@@ -170,12 +230,13 @@ private:
 	std::shared_ptr<Spark::VertexArray> vertexArray;
 	std::shared_ptr<Spark::VertexArray> squareVertexArray;
 	Spark::PerspectiveCamera m_Camera;
-	float m_CameraPosX = 0;
-	float m_CameraPosY = 0;
-	float m_CameraPosZ = 3;
+	glm::vec3 m_CameraPos;
 	float m_CameraYaw = 0;
 	float m_CameraPitch = 0;
 	float m_CameraRoll = 0;
+	float lastMouseX = 0;
+	float lastMouseY = 0;
+	bool firstFrame = true;
 };
 
 class SparkGame : public Spark::Application

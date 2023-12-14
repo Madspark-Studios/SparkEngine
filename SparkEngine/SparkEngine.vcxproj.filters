@@ -85,6 +85,7 @@
     <ClInclude Include="src\Spark\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Spark\Renderer\Camera.h" />
     <ClInclude Include="src\Spark\Renderer\Shader.h" />
+    <ClInclude Include="src\Spark\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Spark\Application.cpp">

@@ -8,11 +8,13 @@
 #include "Spark/EntryPoint.h"
 //------------------------------
 
+//Core
 #include "Spark/Events/ApplicationEvent.h"
 #include "Spark/Layer.h"
 #include "Spark/imgui/ImGUILayer.h"
 #include "imgui.h"
 #include "Spark/Input.h"
+#include "Spark/Core/Timestep.h"
 
 //Rendering
 #include "Spark/Renderer/Renderer.h"
@@ -20,3 +22,6 @@
 #include "Spark/Renderer/VertexArray.h"
 #include "Spark/Renderer/Shader.h"
 #include "Spark/Renderer/Camera.h"
+
+//Math
+#include <glm/glm.hpp>
