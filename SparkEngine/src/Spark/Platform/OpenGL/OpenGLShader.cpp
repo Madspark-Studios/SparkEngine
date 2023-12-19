@@ -69,6 +69,7 @@ namespace Spark
 
 			// Use the infoLog as you see fit.
 			SPARK_CORE_CRITICAL("{0}", infoLog.data());
+			SPARK_CORE_CRITICAL("{0}", source);
 			SPARK_CORE_ASSERT(false, "OpenGL Fragment Shader Compilation Failed: ");
 
 			// In this simple program, we'll just leave

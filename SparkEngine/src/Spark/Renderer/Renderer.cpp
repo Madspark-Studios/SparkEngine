@@ -16,7 +16,7 @@ namespace Spark
 
 	}
 
-	void Renderer::Draw(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& shader, const glm::mat4 transform)
+	void Renderer::Draw(const Spark::Ref<VertexArray>& vertexArray, const Spark::Ref<Shader>& shader, const glm::mat4 transform)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->SetUniformMat4("u_Transform", transform);

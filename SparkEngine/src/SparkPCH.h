@@ -13,6 +13,7 @@
 #include <unordered_set>
 
 #include "Spark/Log.h"
+#include "Spark/Core.h"
 
 #ifdef SPARK_PLATFORM_WINDOWS
 	#include <Windows.h>

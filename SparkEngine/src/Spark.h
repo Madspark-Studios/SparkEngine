@@ -22,6 +22,7 @@
 #include "Spark/Renderer/VertexArray.h"
 #include "Spark/Renderer/Shader.h"
 #include "Spark/Renderer/Camera.h"
+#include "Spark/Renderer/Texture.h"
 
 //Math
 #include <glm/glm.hpp>

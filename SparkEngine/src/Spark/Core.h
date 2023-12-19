@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 #ifdef SPARK_PLATFORM_WINDOWS
 #if SPARK_DYNAMIC_LINK
@@ -23,3 +24,12 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+namespace Spark
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

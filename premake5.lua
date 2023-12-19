@@ -16,6 +16,7 @@ IncludeDir["glad"] = "SparkEngine/vendor/glad/include"
 IncludeDir["GLFW"] = "SparkEngine/vendor/GLFW/include"
 IncludeDir["imgui"] = "SparkEngine/vendor/imgui"
 IncludeDir["glm"] = "SparkEngine/vendor/glm"
+IncludeDir["stb_image"] = "SparkEngine/vendor/stb_image"
 
 include "SparkEngine/vendor/glad"
 include "SparkEngine/vendor/GLFW"
@@ -37,7 +38,8 @@ project "SparkEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{IncludeDir.stb_image}/**.cpp"
 	}
 
 	includedirs
@@ -47,7 +49,8 @@ project "SparkEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	libdirs
@@ -114,7 +117,8 @@ project "SparkGame"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	libdirs
