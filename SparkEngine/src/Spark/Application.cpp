@@ -1,7 +1,7 @@
 #include "SparkPCH.h"
 #include "Application.h"
 #include "Input.h"
-#include "Spark/Renderer/RenderCommand.h"
+#include "Spark/Renderer/Renderer.h"
 
 namespace Spark
 {
@@ -13,9 +13,11 @@ namespace Spark
 	{
 		SPARK_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
-		SPARK_INFO("Initialized");
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		m_ImGUILayer = new ImGUILayer();
 		PushOverlay(m_ImGUILayer);

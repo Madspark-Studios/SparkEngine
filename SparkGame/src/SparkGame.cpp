@@ -193,6 +193,7 @@ public:
 		m_TextureShader.reset(Spark::Shader::Create(texture_vertex_source, texture_fragment_source));
 
 		m_Texture = Spark::Texture2D::Create("assets/textures/default.jpg");
+		m_Icon = Spark::Texture2D::Create("assets/textures/Sparkplug.png");
 
 		std::dynamic_pointer_cast<Spark::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Spark::OpenGLShader>(m_TextureShader)->SetUniformInt("u_Texture", 0);
@@ -280,9 +281,13 @@ public:
 				Spark::Renderer::Draw(m_SquareVA, m_FlatColorShader, transform);
 			}
 		}
-		m_Texture->Bind();
 		tri_transform = glm::scale(tri_transform, glm::vec3(1.5f));
+
+		m_Texture->Bind();
 		Spark::Renderer::Draw(m_SquareVA, m_TextureShader, tri_transform);
+		m_Icon->Bind();
+		Spark::Renderer::Draw(m_SquareVA, m_TextureShader, glm::translate(tri_transform, glm::vec3(0.0f, 0.0f, 0.01f)));
+
 		//Spark::Renderer::Draw(m_TriangleVA, m_Shader, tri_transform);
 		Spark::Renderer::EndScene();
 	}
@@ -342,6 +347,7 @@ private:
 	bool m_FirstFrame = true;
 	glm::vec3 m_SquareColor = { 0.2, 0.6, 0.6 };
 	Spark::Ref<Spark::Texture2D> m_Texture;
+	Spark::Ref<Spark::Texture2D> m_Icon;
 };
 
 class SparkGame : public Spark::Application

@@ -5,6 +5,16 @@
 
 namespace Spark
 {
+	void OpenGLRendererAPI::Init()
+	{
+		glEnable(GL_BLEND);
+		glCheckError();
+		glEnable(GL_DEPTH_TEST);
+		glCheckError();
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glCheckError();
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
