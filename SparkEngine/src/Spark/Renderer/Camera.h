@@ -24,9 +24,6 @@ namespace Spark
 		float GetPitch() const { return m_Pitch; }
 		void SetPitch(float degrees) { m_Pitch = degrees; RecalculateViewMatrix(); }
 
-		float GetRoll() const { return m_Roll; }
-		void SetRoll(float degrees) { m_Roll = degrees; RecalculateViewMatrix(); }
-
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
 		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
@@ -43,7 +40,6 @@ namespace Spark
 		glm::vec3 m_Right = glm::normalize(glm::cross(m_Forward, m_Up));
 		float m_Yaw = -90.0f;
 		float m_Pitch = 0.0f;
-		float m_Roll = 0.0f;
 	};
 
 	class OrthographicCamera : public Camera

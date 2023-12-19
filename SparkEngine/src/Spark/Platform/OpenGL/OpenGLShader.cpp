@@ -134,10 +134,59 @@ namespace Spark
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix) const
+	void OpenGLShader::SetUniformInt(const std::string& name, int value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniform1i(location, value);
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformFloat(const std::string& name, float value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniform1f(location, value);
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformFloat2(const std::string& name, const glm::vec2& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniform2fv(location, 1, glm::value_ptr(value));
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformFloat3(const std::string& name, const glm::vec3& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniform3fv(location, 1, glm::value_ptr(value));
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformFloat4(const std::string& name, const glm::vec4& value)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniform4fv(location, 1, glm::value_ptr(value));
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformMat3(const std::string& name, const glm::mat3& matrix)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glCheckError();
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glCheckError();
+	}
+
+	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glCheckError();
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glCheckError();
 	}
 }
