@@ -26,9 +26,9 @@ namespace Spark
 		//	glm::rotate(glm::mat4(1.0f), glm::radians(m_Roll), glm::vec3(0, 0, 1));
 		m_Right = glm::normalize(glm::cross(m_Forward, m_Up));
 		glm::vec3 direction;
-		direction.x = glm::cos(glm::radians(m_Yaw)) * glm::cos(glm::radians(m_Pitch));
+		direction.x = glm::cos(glm::radians(-m_Yaw - 90.0f)) * glm::cos(glm::radians(m_Pitch));
 		direction.y = glm::sin(glm::radians(m_Pitch));
-		direction.z = glm::sin(glm::radians(m_Yaw)) * glm::cos(glm::radians(m_Pitch));
+		direction.z = glm::sin(glm::radians(-m_Yaw - 90.0f)) * glm::cos(glm::radians(m_Pitch));
 		m_Forward = glm::normalize(direction);
 		glm::mat4 transform = glm::lookAt(m_Position, m_Forward + m_Position, m_Up);
 

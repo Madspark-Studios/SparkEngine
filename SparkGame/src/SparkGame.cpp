@@ -151,46 +151,7 @@ public:
 
 		m_FlatColorShader.reset(Spark::Shader::Create(flat_color_vertex_source, flat_color_fragment_source));
 
-		std::string texture_vertex_source =
-		{
-			R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Pos;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-			
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Pos, 1.0);
-			}
-			)"
-		};
-
-		std::string texture_fragment_source =
-		{
-			R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 FragColor;
-
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-			
-			void main()
-			{
-				FragColor = texture(u_Texture, v_TexCoord);
-			}
-		)"
-		};
-
-		m_TextureShader.reset(Spark::Shader::Create(texture_vertex_source, texture_fragment_source));
+		m_TextureShader.reset(Spark::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture = Spark::Texture2D::Create("assets/textures/default.jpg");
 		m_Icon = Spark::Texture2D::Create("assets/textures/Sparkplug.png");
@@ -257,7 +218,7 @@ public:
 		}
 
 		m_Camera.SetPosition(m_CameraPos);
-		m_Camera.SetYaw(-m_CameraYaw);
+		m_Camera.SetYaw(m_CameraYaw);
 		m_Camera.SetPitch(m_CameraPitch);
 
 		glm::mat4 tri_transform = glm::translate(glm::mat4(1.0f), m_TriPos);
@@ -339,7 +300,7 @@ private:
 	Spark::PerspectiveCamera m_Camera;
 	glm::vec3 m_CameraPos;
 	glm::vec3 m_TriPos;
-	float m_CameraYaw = 90.0f;
+	float m_CameraYaw = 0;
 	float m_CameraPitch = 0;
 	float m_CameraRoll = 0;
 	float m_LastMouseX = 0;
